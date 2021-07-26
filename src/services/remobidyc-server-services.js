@@ -1,27 +1,31 @@
-import http from "../http-commons";
+import {http} from "../http-commons";
 
-class DataService {
 
-  getAll() {
+  const getAll = () =>  {
     return http.get("/runs");
   }
 
-  get(id) {
+  const getSimulation = (id) =>  {
     return http.get(`/runs/${id}`);
   }
 
-  create(data) {
-    return http.post("/register", data).then(res => {alert(res); console.log(res.data)});
+  const createSimulation = (data) =>  {
+    return http.post("/register", data);
   }
 
-  update(id, data) {
+  const updateSimulation = (id, data) =>  {
     return http.put(`/runs/${id}`, data);
   }
 
-  delete(id) {
+  const deleteSimulation = (id) => {
     return http.delete(`/runs/${id}`);
   }
 
-}
-
-export default DataService;
+  const httpService = {
+    getAll,
+    getSimulation, 
+    createSimulation, 
+    updateSimulation,
+    deleteSimulation
+  }
+export default httpService; 
