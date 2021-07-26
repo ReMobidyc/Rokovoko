@@ -1,7 +1,6 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import SimulationTab from './simulationTab';
-
+import httpService from '../services/remobidyc-server-services';
 
 export default function ReadingSimulation(props) {
 
@@ -10,19 +9,17 @@ export default function ReadingSimulation(props) {
     const [simulation, getSimulationById] = useState('');
 
     useEffect(() => {
+        const getSpecificSimulation = () => {
 
+            httpService.getSimulation(props.match.params.id).then((response) => {
+                const simulation = response.data;
+                getSimulationById(simulation);
+            }).catch(error => console.error(`Error: ${error}`))
+
+        }
         getSpecificSimulation();
 
-    }, []);
-
-    const getSpecificSimulation = () => {
-
-        axios.get('http://localhost:2222/api/runs/' + props.match.params.id).then((response) => {
-            const simulation = response.data; 
-            getSimulationById(simulation);
-        }).catch(error => console.error(`Error: ${error}`))
-
-    }
+    }, [props.match.params.id]);
 
     return (
         <table className="table">
