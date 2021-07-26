@@ -4,14 +4,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Register from "./components/register";
 import ListingSimulation from "./components/listingSimulations"
 
-import FormNavBar from "./components/formNavBar";
+import NavBar from "./components/navBar"; 
 import ReadingSimulation from "./components/readSimulation";
 import Footer from "./components/footer";
 class App extends Component {
   render() {
     return (<div className="d-flex flex-column min-vh-100">
       <header>
-        <FormNavBar/>
+        <NavBar/>
       </header>
       <div className="container mt-3">
         <Switch>
