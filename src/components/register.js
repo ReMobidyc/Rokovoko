@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import DataService from "../services/remobidyc-server-services";
-import axios from "axios";
+import httpService from "../services/remobidyc-server-services";
 
 class Register extends Component {
     constructor(props) {
@@ -10,8 +9,8 @@ class Register extends Component {
             model: '',
             progress: 0.0,
             token:''
-        };
-        this.services = new DataService();
+        }; 
+
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleRegistration = this.handleRegistration.bind(this); 
     }
@@ -36,7 +35,7 @@ class Register extends Component {
 
         };
 
-        axios.post('http://localhost:2222/api/register', simulation).then(res => {this.state.token = res.data.token});
+        httpService.createSimulation(simulation).then(res => {this.setState({token:res.data.token})});
     }
 
     render() {
