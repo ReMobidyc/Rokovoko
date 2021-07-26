@@ -12,7 +12,7 @@ export default function SimulationTab(props) {
                 simulations.map((simulation, index) => {
 
                     return (
-                        <tr>
+                        <tr key={index}>
                             <th scope="row">{index + 1}</th>
                             <td>{simulation.id}</td>
                             <td>{simulation.username}</td>
