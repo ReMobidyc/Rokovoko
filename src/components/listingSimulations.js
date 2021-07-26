@@ -1,7 +1,6 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import SimulationTab from './simulationTab';
-
+import httpService from '../services/remobidyc-server-services'
 
 export default function ListingSimulation() {
 
@@ -16,12 +15,10 @@ export default function ListingSimulation() {
     }, []);
 
     const getAllSimulations = () => {
-
-        axios.get('http://localhost:2222/api/runs').then((response) => {
+        httpService.getAll().then((response) => {
             const allSimulations = response.data; 
             getSimulations(allSimulations);
         }).catch(error => console.error(`Error: ${error}`))
-
     }
 
     return (
