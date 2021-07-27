@@ -12,7 +12,7 @@ export default function IndexPage() {
             others.
           </p>
           <p>
-            <Link to={"/register"} className="btn btn-primary">
+            <Link to={"/register"} className="btn btn-primary my-2">
               Register a simulation.
             </Link>
             <Link to={"/runs"} className="btn btn-secondary mx-2">
