@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import mobidycImg from "../images/mobidycDefault.png";
+import mobidycImg from "../images/reMobidycDefault.png";
 export default function IndexPage() {
   return (
     <main>
