@@ -35,5 +35,5 @@ export default function SimulationTab(props) {
 }
 
 SimulationTab.propTypes = {
-  simulations: PropTypes.string,
+  simulations: PropTypes.any,
 };
