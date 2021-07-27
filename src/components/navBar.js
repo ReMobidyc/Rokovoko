@@ -42,11 +42,6 @@ class NavBar extends Component {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to={"/runs/:id"} className="nav-link">
-                Tokens
-              </Link>
-            </li>
-            <li className="nav-item">
               <Link to={"/runs"} className="nav-link">
                 Runs
               </Link>
