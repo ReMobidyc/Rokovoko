@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-
+import httpService from "../services/remobidyc-server-services";
 export default class SimulationTab extends Component {
   constructor(props) {
     super(props);
@@ -34,17 +34,19 @@ export default class SimulationTab extends Component {
       this.setState({ currentSimulation: simulation });
     };
   }
-  deleteSimulation(simulation) {
-    return (event) => {
-      event.preventDefault();
-      console.log(event);
-      console.log(simulation);
-    };
+  deleteSimulation(event) {
+    event.preventDefault();
+    console.log(event);
+    console.log(this.state.currentSimulation);
+    httpService
+      .deleteSimulation(this.state.currentSimulation.id, this.state.token)
+      .then((res) => {
+        console.log(res.data);
+      });
   }
 
-  updateSimulation(event, simulation) {
+  updateSimulation(event) {
     event.preventDefault();
-    console.log(simulation.id);
   }
 
   /**  Display a given simulation
@@ -93,7 +95,7 @@ export default class SimulationTab extends Component {
                   ></button>
                 </div>
                 <div className="modal-body">
-                  <form onSubmit={this.deleteSimulation(simulation)}>
+                  <form onSubmit={this.deleteSimulation}>
                     <div className="mb-3">
                       <label
                         htmlFor="recipient-name"
@@ -107,6 +109,7 @@ export default class SimulationTab extends Component {
                         className="form-control"
                         id="recipient-name"
                         onChange={this.handleInputChange}
+                        required
                       />
                     </div>
                     <div className="modal-footer">
@@ -156,7 +159,7 @@ export default class SimulationTab extends Component {
                   ></button>
                 </div>
                 <div className="modal-body">
-                  <form onSubmit={this.updateSimulation.bind(this, simulation)}>
+                  <form onSubmit={this.updateSimulation}>
                     <div className="mb-3">
                       <label htmlFor="token" className="col-form-label lead">
                         Token:
@@ -167,6 +170,7 @@ export default class SimulationTab extends Component {
                         className="form-control"
                         id="token"
                         onChange={this.handleInputChange}
+                        required
                       />
                     </div>
 
@@ -180,6 +184,7 @@ export default class SimulationTab extends Component {
                         className="form-control"
                         id="progress"
                         onChange={this.handleInputChange}
+                        required
                       />
                     </div>
                     <div className="modal-footer">
