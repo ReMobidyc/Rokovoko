@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "@popperjs/core";
+import "bootstrap/dist/js/bootstrap.bundle";
 import Register from "./components/register";
 import ListingSimulation from "./components/listingSimulations";
 import IndexPage from "./components/indexPage";
