@@ -7,6 +7,7 @@ export default class SimulationTab extends Component {
     this.state = {
       progress: 0.0,
       token: "",
+      currentSimulation: "",
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -14,6 +15,7 @@ export default class SimulationTab extends Component {
     this.updateSimulation = this.updateSimulation.bind(this);
     this.displaySimulations = this.displaySimulations.bind(this);
     this.displaySimulation = this.displaySimulation.bind(this);
+    this.setCurrentSimulation = this.setCurrentSimulation.bind(this);
   }
 
   handleInputChange(event) {
@@ -24,14 +26,20 @@ export default class SimulationTab extends Component {
     this.setState({
       [name]: value,
     });
-    console.log("salut");
   }
 
-  deleteSimulation(event, simulation) {
-    event.preventDefault();
-    alert("salut");
-    console.log("salut");
-    console.log(simulation);
+  setCurrentSimulation(simulation) {
+    return (event) => {
+      event.preventDefault();
+      this.setState({ currentSimulation: simulation });
+    };
+  }
+  deleteSimulation(simulation) {
+    return (event) => {
+      event.preventDefault();
+      console.log(event);
+      console.log(simulation);
+    };
   }
 
   updateSimulation(event, simulation) {
@@ -60,6 +68,7 @@ export default class SimulationTab extends Component {
             className="btn btn-danger mx-2 btn-sm"
             data-bs-toggle="modal"
             data-bs-target="#tokenForDeleteModal"
+            onClick={this.setCurrentSimulation(simulation).bind(simulation)}
           >
             Delete
           </button>
@@ -84,7 +93,7 @@ export default class SimulationTab extends Component {
                   ></button>
                 </div>
                 <div className="modal-body">
-                  <form onSubmit={this.deleteSimulation.bind(this, simulation)}>
+                  <form onSubmit={this.deleteSimulation(simulation)}>
                     <div className="mb-3">
                       <label
                         htmlFor="recipient-name"
@@ -122,6 +131,7 @@ export default class SimulationTab extends Component {
             className="btn btn-success mx-2 btn-sm"
             data-bs-toggle="modal"
             data-bs-target="#tokenForUpdateModal"
+            onClick={this.setCurrentSimulation(simulation).bind(simulation)}
           >
             Update
           </button>
@@ -172,19 +182,19 @@ export default class SimulationTab extends Component {
                         onChange={this.handleInputChange}
                       />
                     </div>
+                    <div className="modal-footer">
+                      <button
+                        type="button"
+                        className="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                      <button type="submit" className="btn btn-success">
+                        Update simulation
+                      </button>
+                    </div>
                   </form>
-                </div>
-                <div className="modal-footer">
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button type="submit" className="btn btn-success">
-                    Update simulation
-                  </button>
                 </div>
               </div>
             </div>
