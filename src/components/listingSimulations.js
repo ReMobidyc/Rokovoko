@@ -29,6 +29,7 @@ export default function ListingSimulation() {
           <th scope="col">model</th>
           <th scope="col">progress</th>
           <th scope="col">state</th>
+          <th scope="col">actions</th>
         </tr>
       </thead>
       <tbody>
