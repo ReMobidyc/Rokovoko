@@ -16,8 +16,11 @@ const updateSimulation = (id, data) => {
   return http.put(`/runs/${id}`, data);
 };
 
-const deleteSimulation = (id) => {
-  return http.delete(`/runs/${id}`);
+const deleteSimulation = (id, tokenValue) => {
+  return http.delete(`/runs/${id}`, {
+    headers: { Authorization: "*" },
+    data: { token: tokenValue },
+  });
 };
 
 const httpService = {
