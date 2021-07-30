@@ -8,6 +8,7 @@ export default class SimulationTab extends Component {
       progress: 0.0,
       token: "",
       currentSimulation: "",
+      simulations: [],
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -36,8 +37,7 @@ export default class SimulationTab extends Component {
   }
   deleteSimulation(event) {
     event.preventDefault();
-    console.log(event);
-    console.log(this.state.currentSimulation);
+
     httpService
       .deleteSimulation(this.state.currentSimulation.id, this.state.token)
       .then((res) => {
@@ -47,6 +47,17 @@ export default class SimulationTab extends Component {
 
   updateSimulation(event) {
     event.preventDefault();
+    const refreshSimulation = {
+      username: this.state.currentSimulation.username,
+      progress: this.state.progress,
+      model: this.state.currentSimulation.model,
+      token: this.state.token,
+    };
+    httpService
+      .updateSimulation(this.state.currentSimulation.id, refreshSimulation)
+      .then((res) => {
+        console.log(res.data);
+      });
   }
 
   /**  Display a given simulation
