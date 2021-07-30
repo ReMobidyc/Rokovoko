@@ -109,7 +109,8 @@ class Register extends Component {
                     value={this.state.progress}
                     onChange={this.handleInputChange}
                     className="form-control"
-                    step="0.1"
+                    min="0"
+                    max="100"
                     required
                   />
                 </label>
