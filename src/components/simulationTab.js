@@ -73,7 +73,20 @@ export default class SimulationTab extends Component {
         <td>{simulation.id}</td>
         <td>{simulation.username}</td>
         <td>{simulation.model}</td>
-        <td>{simulation.progress}</td>
+        <td>
+          <div className="progress" style={{ height: 20 + "px" }}>
+            <div
+              className="progress-bar"
+              role="progressbar"
+              aria-valuenow={simulation.progress}
+              aria-valuemin="0"
+              aria-valuemax="100"
+              style={{ width: simulation.progress + "%" }}
+            >
+              {simulation.progress}%
+            </div>
+          </div>
+        </td>
         <td>{simulation.state}</td>
         <td>
           <button
@@ -195,6 +208,8 @@ export default class SimulationTab extends Component {
                         className="form-control"
                         id="progress"
                         onChange={this.handleInputChange}
+                        min="0"
+                        max="100"
                         required
                       />
                     </div>
