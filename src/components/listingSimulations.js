@@ -4,7 +4,7 @@ import httpService from "../services/remobidyc-server-services";
 
 export default function ListingSimulation() {
   const [simulations, getSimulations] = useState("");
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     getAllSimulations();
   }, []);
@@ -15,26 +15,47 @@ export default function ListingSimulation() {
       .then((response) => {
         const allSimulations = response.data;
         getSimulations(allSimulations);
+        setLoading(false);
       })
       .catch((error) => console.error(`Error: ${error}`));
   };
 
-  return (
-    <table className="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">id</th>
-          <th scope="col">username</th>
-          <th scope="col">model</th>
-          <th scope="col">progress</th>
-          <th scope="col">state</th>
-          <th scope="col">actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <SimulationTab simulations={simulations} />
-      </tbody>
-    </table>
-  );
+  const modifySimulation = (id, progress) => {
+    const allSimulationsCopy = [...simulations];
+    const simulationIndex = allSimulationsCopy.findIndex(
+      (element) => element.id == id
+    );
+
+    allSimulationsCopy[simulationIndex] = {
+      ...allSimulationsCopy[simulationIndex],
+      progress: progress,
+    };
+
+    getSimulations(allSimulationsCopy);
+  };
+
+  const deletedSimulation = (id) => {
+    const allSimulationsCopy = [...simulations];
+    const simulationIndex = allSimulationsCopy.findIndex(
+      (element) => element.id == id
+    );
+
+    allSimulationsCopy.splice(simulationIndex, 1);
+
+    getSimulations(allSimulationsCopy);
+  };
+
+  if (loading) {
+    return <h1>Loading</h1>;
+  } else if (simulations.length > 0) {
+    return (
+      <SimulationTab
+        simulations={simulations}
+        modifySimulation={modifySimulation}
+        deletedSimulation={deletedSimulation}
+      />
+    );
+  } else {
+    return <h1>There is no simulation</h1>;
+  }
 }
