@@ -11,12 +11,32 @@ export default class SimulationTab extends Component {
       simulations: [],
     };
 
+    // bind function to this
     this.handleInputChange = this.handleInputChange.bind(this);
     this.deleteSimulation = this.deleteSimulation.bind(this);
     this.updateSimulation = this.updateSimulation.bind(this);
     this.displaySimulations = this.displaySimulations.bind(this);
     this.displaySimulation = this.displaySimulation.bind(this);
     this.setCurrentSimulation = this.setCurrentSimulation.bind(this);
+
+    // reset SimulationTab state needed to have a rerendering after
+    // parent component this.props.modifiedSimulation called
+    this.baseState = this.state;
+    this.resetState = this.resetState.bind(this);
+  }
+
+  resetState() {
+    this.setState(this.baseState);
+  }
+
+  /*
+   *  Reset all field input in our modal form
+   *  after update or delete actions
+   */
+  resetInput() {
+    Array.from(document.querySelectorAll("input")).forEach(
+      (input) => (input.value = "")
+    );
   }
 
   handleInputChange(event) {
@@ -42,6 +62,11 @@ export default class SimulationTab extends Component {
       .deleteSimulation(this.state.currentSimulation.id, this.state.token)
       .then((res) => {
         console.log(res.data);
+        // modify in parent component the simulation
+        // and reset the current component state.
+        this.props.deletedSimulation(this.state.currentSimulation.id);
+        this.resetState();
+        this.resetInput();
       });
   }
 
@@ -57,6 +82,14 @@ export default class SimulationTab extends Component {
       .updateSimulation(this.state.currentSimulation.id, refreshSimulation)
       .then((res) => {
         console.log(res.data);
+        // modify in parent component the simulation
+        // and reset the current component state.
+        this.props.modifySimulation(
+          this.state.currentSimulation.id,
+          this.state.progress
+        );
+        this.resetState();
+        this.resetInput();
       });
   }
 
@@ -144,7 +177,11 @@ export default class SimulationTab extends Component {
                       >
                         Close
                       </button>
-                      <button type="submit" className="btn btn-danger">
+                      <button
+                        type="submit"
+                        className="btn btn-danger"
+                        data-bs-dismiss="modal"
+                      >
                         Delete simulation
                       </button>
                     </div>
@@ -173,7 +210,7 @@ export default class SimulationTab extends Component {
               <div className="modal-content">
                 <div className="modal-header">
                   <h5 className="modal-title" id="tokenModalLabel">
-                    Delete simulation
+                    Update simulation
                   </h5>
                   <button
                     type="button"
@@ -221,7 +258,11 @@ export default class SimulationTab extends Component {
                       >
                         Close
                       </button>
-                      <button type="submit" className="btn btn-success">
+                      <button
+                        type="submit"
+                        className="btn btn-success"
+                        data-bs-dismiss="modal"
+                      >
                         Update simulation
                       </button>
                     </div>
@@ -248,10 +289,29 @@ export default class SimulationTab extends Component {
   }
 
   render() {
-    return <>{this.displaySimulations()}</>;
+    return (
+      <table className="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">id</th>
+            <th scope="col">username</th>
+            <th scope="col">model</th>
+            <th scope="col">progress</th>
+            <th scope="col">state</th>
+            <th scope="col">actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <this.displaySimulations />
+        </tbody>
+      </table>
+    );
   }
 }
 
 SimulationTab.propTypes = {
   simulations: PropTypes.any,
+  modifySimulation: PropTypes.any,
+  deletedSimulation: PropTypes.any,
 };
