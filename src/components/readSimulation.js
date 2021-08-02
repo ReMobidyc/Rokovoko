@@ -7,36 +7,58 @@ export default function ReadingSimulation(props) {
   const [simulation, getSimulationById] = useState("");
 
   useEffect(() => {
-    const getSpecificSimulation = () => {
-      httpService
-        .getSimulation(props.match.params.id)
-        .then((response) => {
-          const simulation = response.data;
-          getSimulationById(simulation);
-        })
-        .catch((error) => console.error(`Error: ${error}`));
-    };
     getSpecificSimulation();
   }, [props.match.params.id]);
 
-  return (
-    <table className="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">id</th>
-          <th scope="col">username</th>
-          <th scope="col">model</th>
-          <th scope="col">progress</th>
-          <th scope="col">state</th>
-          <th scope="col">actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <SimulationTab simulations={simulation} />
-      </tbody>
-    </table>
-  );
+  const getSpecificSimulation = () => {
+    httpService
+      .getSimulation(props.match.params.id)
+      .then((response) => {
+        const simulation = response.data;
+        getSimulationById(simulation);
+      })
+      .catch((error) => {
+        console.error(`Error: ${error}`);
+        deletedSimulation(-1);
+      });
+  };
+
+  const modifySimulation = (id, progress) => {
+    const modifiedSimulation = simulation;
+    modifiedSimulation.progress = progress;
+    modifiedSimulation.id = id;
+    console.log(modifiedSimulation);
+    getSimulationById(modifiedSimulation);
+  };
+
+  const deletedSimulation = (id) => {
+    // if not -1 successfully deleted
+    if (id !== -1) {
+      getSimulationById("deleted");
+    } // if -1 there no simulation with id in our API.
+    else {
+      getSimulationById(null);
+    }
+  };
+
+  if (simulation !== null && simulation !== "deleted") {
+    return (
+      <SimulationTab
+        simulations={simulation}
+        modifySimulation={modifySimulation}
+        deletedSimulation={deletedSimulation}
+      />
+    );
+  } else if (simulation === "deleted") {
+    return (
+      <h1>
+        The simulation with id: {props.match.params.id} was successfully
+        deleted.
+      </h1>
+    );
+  } else {
+    return <h1>There is no simulation with id: {props.match.params.id}</h1>;
+  }
 }
 
 ReadingSimulation.propTypes = {
