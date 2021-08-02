@@ -35,19 +35,23 @@ export default function ListingSimulation() {
   };
 
   const deletedSimulation = (id) => {
-    const allSimulationsCopy = [...simulations];
-    const simulationIndex = allSimulationsCopy.findIndex(
-      (element) => element.id == id
-    );
+    if (simulations.length !== 1) {
+      const allSimulationsCopy = [...simulations];
+      const simulationIndex = allSimulationsCopy.findIndex(
+        (element) => element.id == id
+      );
 
-    allSimulationsCopy.splice(simulationIndex, 1);
+      allSimulationsCopy.splice(simulationIndex, 1);
 
-    getSimulations(allSimulationsCopy);
+      getSimulations(allSimulationsCopy);
+    } else {
+      getSimulations(null);
+    }
   };
 
   if (loading) {
     return <h1>Loading</h1>;
-  } else if (simulations.length > 0) {
+  } else if (simulations !== null && simulations.length > 0) {
     return (
       <SimulationTab
         simulations={simulations}
