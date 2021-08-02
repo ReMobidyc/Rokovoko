@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import httpService from "../services/remobidyc-server-services";
 import TokenPage from "./tokenPage";
+import ApiErrConnection from "./apiErrConnection";
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -11,11 +12,15 @@ class Register extends Component {
       progress: 0.0,
       token: "",
       id: "",
+      errorStatus: null,
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleRegistration = this.handleRegistration.bind(this);
+    this.resetState = this.resetState.bind(this);
     this.Display = this.Display.bind(this);
+    // save initial state
+    this.basicState = this.state;
   }
 
   handleInputChange(event) {
@@ -37,12 +42,71 @@ class Register extends Component {
       progress: this.state.progress,
     };
 
-    httpService.createSimulation(simulation).then((res) => {
-      this.setState({ token: res.data.token, id: res.data.id });
-    });
+    httpService
+      .createSimulation(simulation)
+      .then((res) => {
+        this.setState({ token: res.data.token, id: res.data.id });
+        /*better to store in cookies*/
+        let tokenAlreadySaved =
+          localStorage.getItem("token") === null
+            ? []
+            : JSON.parse(localStorage.getItem("token"));
+        tokenAlreadySaved.push(res.data.token);
+        localStorage.setItem("token", JSON.stringify(tokenAlreadySaved));
+      })
+      .catch((err) => {
+        if (err.response) {
+          console.log(err.response);
+          this.setState({ errorStatus: err.response });
+        } else if (err.request) {
+          console.log(err.request);
+          this.setState({ errorStatus: err.request });
+        } else {
+          console.log(err);
+        }
+      });
   }
+
+  resetState() {
+    this.setState(this.basicState);
+  }
+
   Display() {
-    if (this.state.token === "") {
+    if (this.state.token) {
+      const simulationInformations = {
+        id: this.state.id,
+        token: this.state.token,
+        username: this.state.username,
+        progress: this.state.progress,
+        model: this.state.model,
+      };
+      /* to use the same page  */
+      return (
+        <div>
+          <TokenPage simulationInformations={simulationInformations} />
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={this.resetState}
+          >
+            Add new simulation
+          </button>
+        </div>
+      );
+    } else if (this.state.errorStatus) {
+      return (
+        <div>
+          <ApiErrConnection />
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={this.resetState}
+          >
+            Add new simulation
+          </button>
+        </div>
+      );
+    } else {
       return (
         <div className="row">
           <div className="col-md-7 col-md-push-5">
@@ -122,26 +186,9 @@ class Register extends Component {
           </div>
         </div>
       );
-    } else {
-      const simulationInformations = {
-        id: this.state.id,
-        token: this.state.token,
-        username: this.state.username,
-        progress: this.state.progress,
-        model: this.state.model,
-      };
-      /*
-      to create another page cons: if user try to access /token => bug
-      this.props.history.push({
-        pathname: "/token",
-        state: simulationInformations,
-      });
-      return null;*/
-
-      /* to use the same page  */
-      return <TokenPage simulationInformations={simulationInformations} />;
     }
   }
+
   render() {
     return <this.Display />;
   }
