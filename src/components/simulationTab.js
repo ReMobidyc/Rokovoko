@@ -124,7 +124,7 @@ export default class SimulationTab extends Component {
         <td>
           <button
             type="button"
-            className="btn btn-danger mx-2 btn-sm"
+            className="btn btn-danger mx-2 my-2 btn-sm"
             data-bs-toggle="modal"
             data-bs-target="#tokenForDeleteModal"
             onClick={this.setCurrentSimulation(simulation).bind(simulation)}
@@ -290,22 +290,24 @@ export default class SimulationTab extends Component {
 
   render() {
     return (
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">id</th>
-            <th scope="col">username</th>
-            <th scope="col">model</th>
-            <th scope="col">progress</th>
-            <th scope="col">state</th>
-            <th scope="col">actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <this.displaySimulations />
-        </tbody>
-      </table>
+      <div className="table-responsive-md">
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">id</th>
+              <th scope="col">username</th>
+              <th scope="col">model</th>
+              <th scope="col">progress</th>
+              <th scope="col">state</th>
+              <th scope="col">actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <this.displaySimulations />
+          </tbody>
+        </table>
+      </div>
     );
   }
 }

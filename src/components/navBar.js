@@ -35,17 +35,34 @@ class NavBar extends Component {
           <a href="/" className="navbar-brand">
             <img src={logo} alt="reMobidyc logo" /> reMobidycServer
           </a>
-          <div className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <Link to={"/register"} className="nav-link">
-                Register
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to={"/runs"} className="nav-link">
-                Runs
-              </Link>
-            </li>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+
+          <div
+            className="navbar-nav ml-auto collapse navbar-collapse"
+            id="navbarSupportedContent"
+          >
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <Link to={"/register"} className="nav-link">
+                  Register
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to={"/runs"} className="nav-link">
+                  Runs
+                </Link>
+              </li>
+            </ul>
             <form className="d-flex " onSubmit={this.handleSearchId}>
               <div className="input-group">
                 <input
