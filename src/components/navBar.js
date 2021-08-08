@@ -62,6 +62,11 @@ class NavBar extends Component {
                   Runs
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link to={"/myTokens"} className="nav-link">
+                  my Tokens
+                </Link>
+              </li>
             </ul>
             <form className="d-flex " onSubmit={this.handleSearchId}>
               <div className="input-group">
