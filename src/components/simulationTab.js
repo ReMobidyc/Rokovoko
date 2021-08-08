@@ -124,7 +124,7 @@ export default class SimulationTab extends Component {
         <td>
           <button
             type="button"
-            className="btn btn-danger mx-2 my-2 btn-sm"
+            className="btn btn-danger mx-2  btn-sm"
             data-bs-toggle="modal"
             data-bs-target="#tokenForDeleteModal"
             onClick={this.setCurrentSimulation(simulation).bind(simulation)}

@@ -27,7 +27,6 @@ export default function ReadingSimulation(props) {
     const modifiedSimulation = simulation;
     modifiedSimulation.progress = progress;
     modifiedSimulation.id = id;
-    console.log(modifiedSimulation);
     getSimulationById(modifiedSimulation);
   };
 
