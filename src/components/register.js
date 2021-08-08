@@ -46,12 +46,13 @@ class Register extends Component {
       .createSimulation(simulation)
       .then((res) => {
         this.setState({ token: res.data.token, id: res.data.id });
-        /*better to store in cookies*/
+
         let tokenAlreadySaved =
           localStorage.getItem("token") === null
             ? []
             : JSON.parse(localStorage.getItem("token"));
-        tokenAlreadySaved.push(res.data.token);
+        tokenAlreadySaved.push({ id: res.data.id, token: res.data.token });
+
         localStorage.setItem("token", JSON.stringify(tokenAlreadySaved));
       })
       .catch((err) => {
