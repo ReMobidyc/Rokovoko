@@ -8,6 +8,7 @@ import ListingSimulation from "./components/listingSimulations";
 import IndexPage from "./components/indexPage";
 import NavBar from "./components/navBar";
 import ReadingSimulation from "./components/readSimulation";
+import UserTokens from "./components/userTokensPage";
 import Footer from "./components/footer";
 class App extends Component {
   render() {
@@ -22,6 +23,7 @@ class App extends Component {
             <Route exact path="/register" component={Register} />
             <Route exact path="/runs" component={ListingSimulation} />
             <Route exact path="/runs/:id" component={ReadingSimulation} />
+            <Route exact path="/myTokens" component={UserTokens} />
           </Switch>
         </div>
         <Footer />
