@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import httpService from "../services/remobidyc-server-services";
 import TokenPage from "./tokenPage";
 import ApiErrConnection from "./apiErrConnection";
+/**
+ * Component to allow user to register a Simulation into our API.
+ */
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -32,7 +35,10 @@ class Register extends Component {
       [name]: value,
     });
   }
-
+  /**
+   * Handle when user click on the register button.
+   * @param {object} event occur when user click on register button.
+   */
   handleRegistration(event) {
     event.preventDefault();
 
@@ -67,11 +73,17 @@ class Register extends Component {
         }
       });
   }
-
+  /**
+   * Allows us to reset the component state.
+   */
   resetState() {
     this.setState(this.basicState);
   }
-
+  /**
+   * Display the /register page content
+   * @returns display the registered simulation informations if user just registered a simulation,
+   *          otherwise display the form which allows user to register a simulation.
+   */
   Display() {
     if (this.state.token) {
       const simulationInformations = {

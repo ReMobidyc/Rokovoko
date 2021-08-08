@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import httpService from "../services/remobidyc-server-services";
+/**
+ * Component to display a table which contains all registered simulations informations.
+ *
+ */
 export default class SimulationTab extends Component {
   constructor(props) {
     super(props);
@@ -24,15 +28,15 @@ export default class SimulationTab extends Component {
     this.baseState = this.state;
     this.resetState = this.resetState.bind(this);
   }
-
+  /**Allows us to reset our state to the initial state.
+   **/
   resetState() {
     this.setState(this.baseState);
   }
 
-  /*
-   *  Reset all field input in our modal form
+  /** Reset all fields input in our modal form
    *  after update or delete actions
-   */
+   **/
   resetInput() {
     Array.from(document.querySelectorAll("input")).forEach(
       (input) => (input.value = "")
@@ -55,6 +59,12 @@ export default class SimulationTab extends Component {
       this.setState({ currentSimulation: simulation });
     };
   }
+
+  /** Method to send delete request to our API.
+   * @param {object} event occurs when user click on the modal delete button.
+   * @return none if simulation was successfully deleted, alert messsage if error occured
+   *
+   **/
   deleteSimulation(event) {
     event.preventDefault();
 
@@ -69,7 +79,11 @@ export default class SimulationTab extends Component {
         this.resetInput();
       });
   }
-
+  /** Method to send PUT request to our API.
+   * @param {object} event occurs when user click on the modal update button.
+   * @return none if simulation was successfully updated, alert messsage if error occured
+   *
+   **/
   updateSimulation(event) {
     event.preventDefault();
     const refreshSimulation = {
@@ -276,6 +290,10 @@ export default class SimulationTab extends Component {
     );
   }
 
+  /** Display all simulations present in simulations if simulations is an array.
+   *  Otherwise display the only one simulation present in this.props.
+   *  @return table with all simulations present in this.props
+   **/
   displaySimulations() {
     const { simulations } = this.props;
 

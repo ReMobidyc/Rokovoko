@@ -1,6 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import mobidycImg from "../images/reMobidycDefault.png";
+/**
+ * Component to display the index page content.
+ * @returns display the index page content
+ */
 export default function IndexPage() {
   return (
     <main>

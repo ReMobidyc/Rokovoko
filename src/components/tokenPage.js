@@ -1,6 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+/**
+ *
+ * @param {object} props contains a Simulation informations
+ * @returns rendering a page with the registered simulation informations
+ */
 export default function TokenPage(props) {
   return (
     <div>

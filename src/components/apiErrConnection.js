@@ -1,5 +1,8 @@
 import React from "react";
-
+/**
+ * Component to display error API message.
+ * @returns Display message when we have connection problems with our API
+ */
 export default function ApiErrConnection() {
   return (
     <div>

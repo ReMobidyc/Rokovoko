@@ -3,6 +3,9 @@ import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 import logo from "../images/logo.png";
 import PropTypes from "prop-types";
+/**
+ * Component to display the navigation bar at top.
+ */
 class NavBar extends Component {
   constructor(props) {
     super(props);
@@ -22,12 +25,18 @@ class NavBar extends Component {
       [name]: value,
     });
   }
-
+  /**
+   * Allows us to handle when user click on the search button.
+   * @param {object} event to redirect user to the good url after search button click.
+   */
   handleSearchId(event) {
     event.preventDefault();
     this.props.history.push("/runs/" + this.state.runID);
   }
-
+  /**
+   *
+   * @returns the navigation bar html code.
+   */
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">

@@ -1,11 +1,19 @@
 import React from "react";
-
+/**
+ * This component read the localStorage to know if the current user have token
+ * @returns a page which contains all current user tokens
+ */
 export default function UserTokens() {
   const userTokens =
     localStorage.getItem("token") === null
       ? []
       : JSON.parse(localStorage.getItem("token"));
-
+  /**
+   * Allows us to display token information
+   * @param {array} userToken
+   * @param {number} index
+   * @returns a row with token information
+   */
   const displayToken = (userToken, index) => {
     return (
       <tr key={index}>
@@ -15,7 +23,11 @@ export default function UserTokens() {
       </tr>
     );
   };
-
+  /**
+   *Allows us to display all token in a table.
+   * @returns a row which contains all token information for each token present
+   *          in userTokens.
+   */
   const DisplayTokens = () => {
     return userTokens.map((userToken, index) => {
       return displayToken(userToken, index);
