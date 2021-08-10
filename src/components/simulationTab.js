@@ -75,6 +75,14 @@ export default class SimulationTab extends Component {
         // modify in parent component the simulation
         // and reset the current component state.
         this.props.deletedSimulation(this.state.currentSimulation.id);
+        // user was able to delete the simulation
+        // so we remove the token in his user token list.
+        let userToken = JSON.parse(localStorage.getItem("token"));
+        const tokenIndex = userToken.findIndex(
+          (element) => element.id == this.state.currentSimulation.id
+        );
+        userToken.splice(tokenIndex, 1);
+        localStorage.setItem("token", JSON.stringify(userToken));
         this.resetState();
         this.resetInput();
       });
