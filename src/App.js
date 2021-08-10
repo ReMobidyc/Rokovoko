@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@popperjs/core";
 import "bootstrap/dist/js/bootstrap.bundle";
+import "./styles/App.scss";
 import Register from "./components/register";
 import ListingSimulation from "./components/listingSimulations";
 import IndexPage from "./components/indexPage";
@@ -17,7 +18,7 @@ class App extends Component {
         <header>
           <NavBar />
         </header>
-        <div className="container mt-3">
+        <div className="container mt-auto">
           <Switch>
             <Route exact path="/" component={IndexPage} />
             <Route exact path="/register" component={Register} />
