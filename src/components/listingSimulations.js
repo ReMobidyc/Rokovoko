@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SimulationTab from "./simulationTab";
+import ApiErrConnection from "./apiErrConnection";
 import httpService from "../services/remobidyc-server-services";
 /**
  * Component to display all simulations informations after
@@ -9,6 +10,7 @@ import httpService from "../services/remobidyc-server-services";
 export default function ListingSimulation() {
   const [simulations, getSimulations] = useState("");
   const [loading, setLoading] = useState(true);
+  const [errorStatus, setErrorStatus] = useState(null);
   useEffect(() => {
     getAllSimulations();
   }, []);
@@ -25,7 +27,18 @@ export default function ListingSimulation() {
         getSimulations(allSimulations);
         setLoading(false);
       })
-      .catch((error) => console.error(`Error: ${error}`));
+      .catch((err) => {
+        setLoading(false);
+        if (err.response) {
+          console.log(err.response);
+          setErrorStatus(err.response);
+        } else if (err.request) {
+          console.log(err.request);
+          setErrorStatus(err.request);
+        } else {
+          console.error(`Error: ${err}`);
+        }
+      });
   };
   /**
    * Allows us to modify a specific simulation in the simulations array variable.
@@ -81,6 +94,8 @@ export default function ListingSimulation() {
         deletedSimulation={deletedSimulation}
       />
     );
+  } else if (errorStatus !== null) {
+    return <ApiErrConnection />;
   } else {
     /**
      * If simulations === null or simulations is empty so, display the following message.
