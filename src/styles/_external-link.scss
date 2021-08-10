@@ -1,0 +1,9 @@
+@import "colors";
+
+.external-link {
+  text-decoration: underline;
+  color: $color-nandor;
+  &:hover {
+    color: $color-web-orange;
+  }
+}
