@@ -26,13 +26,13 @@ export default function Footer() {
               <p>
                 <a
                   href="https://wwp.shizuoka.ac.jp/dgtalaqualab/news/"
-                  className="text-reset"
+                  className="external-link"
                 >
                   DGtalAquaLab
                 </a>
               </p>
               <p>
-                <a href="http://fil.univ-lille1.fr/" className="text-reset">
+                <a href="http://fil.univ-lille1.fr/" className="external-link">
                   University of Lille
                 </a>
               </p>
@@ -41,7 +41,10 @@ export default function Footer() {
             <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
               <h6 className="mb-4">Usefuls Link</h6>
               <p>
-                <a href="https://github.com/ReMobidyc" className="text-reset">
+                <a
+                  href="https://github.com/ReMobidyc"
+                  className="external-link"
+                >
                   ReMobidyc Github
                 </a>
               </p>
@@ -50,7 +53,7 @@ export default function Footer() {
         </div>
       </section>
       <div className="text-center p-2 bg-dark">
-        <span> &copy; 2021 DGtalAquaLab</span>
+        <span className="copyright"> &copy; 2021 DGtalAquaLab</span>
       </div>
     </footer>
   );
