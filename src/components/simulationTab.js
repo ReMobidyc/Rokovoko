@@ -206,7 +206,7 @@ export default class SimulationTab extends Component {
           </div>
           <button
             type="button"
-            className="btn btn-success mx-2 btn-sm"
+            className="btn btn-submit mx-2 btn-sm"
             data-bs-toggle="modal"
             data-bs-target="#tokenForUpdateModal"
             onClick={this.setCurrentSimulation(simulation).bind(simulation)}
@@ -274,7 +274,7 @@ export default class SimulationTab extends Component {
                       </button>
                       <button
                         type="submit"
-                        className="btn btn-success"
+                        className="btn btn-submit"
                         data-bs-dismiss="modal"
                       >
                         Update simulation

@@ -88,7 +88,7 @@ class NavBar extends Component {
                   name="runID"
                 />
                 <div className="input-group-btn">
-                  <button className="btn btn-light" type="submit">
+                  <button className="btn btn-light btn-search" type="submit">
                     Search
                   </button>
                 </div>
